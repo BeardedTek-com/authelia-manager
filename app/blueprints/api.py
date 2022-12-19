@@ -1,7 +1,11 @@
 # External Imports
-from flask import Blueprint, escape, redirect, jsonify, make_response, request, render_template
+from flask import Blueprint, escape, redirect, jsonify, make_response, request, render_template, send_from_directory
 from sqlalchemy import desc, asc
 import markdown
+import yaml
+import json
+from os import path, access, R_OK, getcwd
+import webbrowser
 
 # Internal Imports
 from app.helpers.argon2 import argon2hash
@@ -53,3 +57,27 @@ def apiConfigGET():
     if not output :
         output = {"General Error": True}
     return jsonify(output)
+
+@api.route('/api/<data>/current/<format>',methods=['GET'])
+def apiUsersCurrentGet(format,data):
+    if data == "user" or data == "users" or data == "users_database":
+        data = "users_database"
+    else:
+        data = "configuration"
+    config = f"{getcwd()}/app/data/{data}.yml"
+    if path.isfile(config) and access(config, R_OK):
+        with open(config) as configFile:
+            Data = yaml.safe_load(configFile)
+    else:
+        Data = {"Error": f"Cannot read {config}"}
+    if format == "yaml" or format == "yml":
+        Data = yaml.dump(Data)
+        
+    else:
+        Data = json.dumps(Data,indent=2)
+    markdown =  f"<p class='m-2'>Current {data}.yml</p>"
+    markdown += f"<pre class='text-xl bg-zinc-400 dark:bg-zinc-400 p-1 text-slate-800 dark:text-slate-800'>"
+    markdown += Data
+    markdown +="</pre>"
+    output = render_template('markdown.html',markdown=markdown)
+    return output
