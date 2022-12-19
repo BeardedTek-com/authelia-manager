@@ -72,7 +72,6 @@ def apiUsersCurrentGet(format,data):
         Data = {"Error": f"Cannot read {config}"}
     if format == "yaml" or format == "yml":
         Data = yaml.dump(Data)
-        
     else:
         Data = json.dumps(Data,indent=2)
     markdown =  f"<p class='m-2'>Current {data}.yml</p>"
