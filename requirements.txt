@@ -1,0 +1,6 @@
+passlib
+argon2_cffi
+argon2pure
+flask
+flask_sqlalchemy
+uwsgi
