@@ -33,5 +33,10 @@ def before_request():
 db = SQLAlchemy(app)
 
 # Import Blueprints
+# API
 from app.blueprints import api
 app.register_blueprint(api.api)
+
+#UI
+from app.blueprints import ui
+app.register_blueprint(ui.ui)

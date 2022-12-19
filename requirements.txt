@@ -4,3 +4,4 @@ argon2pure
 flask
 flask_sqlalchemy
 uwsgi
+markdown

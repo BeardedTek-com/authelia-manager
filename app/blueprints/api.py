@@ -1,9 +1,11 @@
 # External Imports
-from flask import Blueprint, escape, redirect, jsonify, make_response, request
+from flask import Blueprint, escape, redirect, jsonify, make_response, request, render_template
 from sqlalchemy import desc, asc
+import markdown
 
 # Internal Imports
 from app.helpers.argon2 import argon2hash
+from app.helpers.apidocs import apidocs
 from app import db
 
 from app.models.config import config
@@ -13,14 +15,12 @@ from app.models.acc_rules import acc_rules
 api = Blueprint('api',__name__)
 
 @api.route('/api')
-def apiList():
-    apilist = {
-        "/api"                              : "API Information (THIS PAGE)",
-        "/api/initdb"                       : "Init Database",
-        "/api/config [GET]"                 : "Returns All Config Data"
-        ""
-    }
-    return jsonify(apilist)
+def apiDoc():
+    APIdocs = apidocs()
+    Markdown = APIdocs.md()
+    apiDocs = render_template('markdown.html',markdown=Markdown)
+    return make_response(apiDocs)
+
 @api.route('/api/initdb')
 def apiInitDB():
     """
