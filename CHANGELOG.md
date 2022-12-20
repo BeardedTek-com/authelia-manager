@@ -1,3 +1,12 @@
+# 2022/12/19
+
+- Created a basic UI so things are easier to read
+  - uses tailwind css cdn
+  - NOTE: need to figure out building a custom tailwind css file out
+- API Endpoints to read current configuration
+  - Reads yaml config into a dict then displays as JSON or YAML
+  - Needs better templating to remove html from code.
+
 # 2022/12/18
 Initial code dump to database
 - Database Models created
