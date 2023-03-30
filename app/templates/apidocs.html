@@ -1,0 +1,13 @@
+{% extends "home.html" %}
+
+{% block content %}
+    <div class="p-5 self-center justify-center items-center text-slate-800 dark:text-slate-200 text-3xl">
+        {% for api in apidocs %}
+            {{api}}
+            {% for url in apidocs[api] %}
+<pre class='text-xl bg-zinc-400 dark:bg-zinc-400 m-1 p-2 text-slate-800 dark:text-slate-800'><code class='cursor-pointer' onClick=parent.location='{{url}}'> {{url}}</code>
+<code>     {{apidocs[api][url]}}</code></pre>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}

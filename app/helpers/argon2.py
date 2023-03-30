@@ -5,6 +5,7 @@ class argon2hash:
         self.password = password
         self.type = None
         self.salt = None
+        self.gen_hash()
 
     def gen_hash(self):
         h = argon2
@@ -19,7 +20,7 @@ class argon2hash:
                 h.salt = self.salt
             except:
                 pass
-
+        
         rval = {
             "hash"      : h.hash(self.password),
             "type"      : h.type,
@@ -29,5 +30,5 @@ class argon2hash:
         return rval
 
 if __name__ == "__main__":
-    Argon2hash = argon2hash("T35tP@55w0rD",type="id",salt="c29tZXNhbHQ")
+    Argon2hash = argon2hash("T35tP@55w0rD",type="id")
     print(Argon2hash.gen_hash())

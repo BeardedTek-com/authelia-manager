@@ -9,6 +9,7 @@ import webbrowser
 
 # Internal Imports
 from app.helpers.argon2 import argon2hash
+from app.helpers.rndpwd import randpwd
 from app.helpers.apidocs import apidocs
 from app import db
 
@@ -22,8 +23,7 @@ api = Blueprint('api',__name__)
 def apiDoc():
     APIdocs = apidocs()
     Markdown = APIdocs.md()
-    apiDocs = render_template('markdown.html',markdown=Markdown)
-    return make_response(apiDocs)
+    return make_response(render_template('apidocs.html',apidocs=Markdown))
 
 @api.route('/api/initdb')
 def apiInitDB():
@@ -74,9 +74,33 @@ def apiUsersCurrentGet(format,data):
         Data = yaml.dump(Data)
     else:
         Data = json.dumps(Data,indent=2)
-    markdown =  f"<p class='m-2'>Current {data}.yml</p>"
-    markdown += f"<pre class='text-xl bg-zinc-400 dark:bg-zinc-400 p-1 text-slate-800 dark:text-slate-800'>"
-    markdown += Data
-    markdown +="</pre>"
-    output = render_template('markdown.html',markdown=markdown)
-    return output
+    return render_template('config_file.html',data=data, Data=Data, format=format)
+
+@api.route('/api/randpw/<format>/<type>',methods=['GET'])
+def apiGenPassword(format,type):
+    """
+    Generates a random password hash
+    """
+    if format:
+    # For now, we only do argon2 password generation.
+    # We can expand here when we add more
+        if type == "i" or type == "d" or type == "id":
+        # Make sure it's a type that we support
+            # Generate random password
+            rndpwd = randpwd()
+            Password = rndpwd.generate()
+            print(Password)
+            pwdhash = argon2hash(rndpwd.generate(),type=type)
+            print(pwdhash)
+            password = {
+                Password    : pwdhash
+            }
+    else:
+        password = {
+            "Error"         : "Unsupported Format"
+        }
+    if not password:
+        password = {
+            "Error"         : "Unknown Error"
+        }
+    return jsonify(password)

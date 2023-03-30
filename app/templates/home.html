@@ -1,0 +1,41 @@
+<!doctype html>
+<html class="bg-zinc-400 dark:bg-zinc-700">
+    <head>
+        <title>authelia-manager | {{domain|upper}}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/static/img/favicon.ico">
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <nav class="flex items-center justify-between flex-wrap bg-sky-700 bg-gradient-to-r to-sky-600 via-violet-700 from-fuchsia-800 p-4">
+            <div class="flex items-center flex-shrink-0 text-white mr-6">
+                <span class="font-semibold text-4xl tracking-tight">authelia-manager</span>
+              </div>
+
+              <div class="block lg:hidden">
+                <button class="flex items-center px-3 py-2 border rounded text-blue-200 hover:text-white hover:border-white mobile-menu">
+                  <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                </button>
+              </div>
+
+              <div class="w-full block flex-grow hidden lg:flex lg:items-center lg:w-auto navmenu">
+                <div class="text-xl lg:flex-grow">
+                  <a href="/ui" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    ui
+                  </a>
+                  <a href="/api" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    api
+                  </a>
+                  <a href="https://github.com/beardedtek-com/authelia-manager" target="_blank" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white">
+                    GitHub
+                  </a>
+                </div>
+              </div>
+        </nav>
+        <main>
+        {% block content %}
+        {% endblock %}
+        </main>
+    </body>
+</html>

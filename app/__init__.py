@@ -17,7 +17,7 @@ try:
     TEMPLATES_FOLDER                  = "templates",
     DEBUG                             = False,
     TESTING                           = False,
-    SQLALCHEMY_DATABASE_URI           = "sqlite:///db.sqlite",
+    SQLALCHEMY_DATABASE_URI           = "sqlite:///authelia-manager.sqlite",
     SQLALCHEMY_TRACK_MODIFICATIONS    = False
     )
 except:

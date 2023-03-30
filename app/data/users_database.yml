@@ -1,0 +1,9 @@
+users:
+    myuser:
+        password: $argon2id$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$bpQfn8cG8LB6jy5G4MCa1oJD1eBHErwRWlDJVkog0Y4
+        displayname: My User
+        email: myuser@example.com
+        groups:
+            - admins
+            - dev
+        disabled: false

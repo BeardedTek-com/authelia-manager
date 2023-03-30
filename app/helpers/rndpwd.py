@@ -22,10 +22,8 @@ class randpwd:
     def generate(count=None,key=False):
         if key == True:
             count = 128
-        elif count == None and key == False:
-            count = randint(10,24)
-        elif count == 0 and key == False:
-            count = randint(10,63)
+        else:
+            count = randint(24,63)
         password = ""
         for x in range(count):
             num = randint(0,2)

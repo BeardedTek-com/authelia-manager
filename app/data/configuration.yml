@@ -1,0 +1,119 @@
+###############################################################
+#                   Authelia configuration                    #
+###############################################################
+
+host: 0.0.0.0
+port: 9091
+log_level: warn
+
+# This secret can also be set using the env variables AUTHELIA_JWT_SECRET_FILE
+# I used this site to generate the secret: https://www.grc.com/passwords.htm
+
+jwt_secret: yqRMLh4sAbQ47mG0jYsv6vzzHJg1CajKve7tB7OSXiYFk9FXE789roSHIn3380y
+
+# https://docs.authelia.com/configuration/miscellaneous.html#default-redirection-url
+default_redirection_url: https://auth.example.com
+
+totp:
+  issuer: authelia.com
+  period: 30
+  skew: 1
+
+
+authentication_backend:
+  file:
+    path: /config/users_database.yml
+    # customize passwords based on https://docs.authelia.com/configuration/authentication/file.html
+    password:
+      algorithm: argon2id
+      iterations: 1
+      salt_length: 16
+      parallelism: 8
+      memory: 512 # blocks this much of the RAM. Tune this.
+
+access_control:
+  default_policy: deny
+
+  networks:
+    - name: internal
+      networks:
+      - '192.168.2.0/24' # Your Internal Subnet
+      - '192.168.21.0/24'
+    - name: tailscale
+      networks:
+      - 192.168.23.0/24
+      - '100.64.0.0/10' # Tailscale Subnet (DO NOT MODIFY)
+  rules:
+    # Authelia must be bypass
+    - domain: auth.example.com
+      policy: bypass
+    # Traefik Dashboard 2FA
+    - domain: "traefik.example.com"
+      policy: two_factor
+      networks:
+      - "internal"
+    # Traefik Tailscale Dashboard one_factor (username/password)
+    - domain: "traefik.tailscale.example.com"
+      policy: one_factor
+      networks:
+      - "tailscale"
+    # Home Assistant No Auth (We can setup authelia in Home Assistant)
+    - domain: "hass.example.com"
+      policy: bypass
+    # Default Policy for any other domains
+    - domain: "*.example.com"
+      policy: two_factor
+    # Let our main domain through without auth
+    - domain: "example.com"
+      policy: bypass
+
+session:
+  name: authelia_session
+  # This secret can also be set using the env variables AUTHELIA_SESSION_SECRET_FILE
+  # Used a different secret, but the same site as jwt_secret above.
+  secret: yqRMLh4sAbQ47mG0jYsv6vzzHJg1CajKve7tB7OSXiYFk9FXE789roSHIn3380y # use docker secret file instead AUTHELIA_SESSION_SECRET_FILE
+  expiration: 3600 # 1 hour
+  inactivity: 300 # 5 minutes
+  domain: example.com # Should match whatever your root protected domain is
+
+
+regulation:
+  max_retries: 3
+  find_time: 120
+  ban_time: 300
+
+storage:
+  encryption_key: yqRMLh4sAbQ47mG0jYsv6vzzHJg1CajKve7tB7OSXiYFk9FXE789roSHIn3380y
+# For local storage, uncomment lines below and comment out mysql. https://docs.authelia.com/configuration/storage/sqlite.html
+  local:
+    path: /config/db.sqlite3
+#  mysql:
+#  # MySQL allows running multiple authelia instances. Create database and enter details below.
+#    host: MYSQL_HOST
+#    port: 3306
+#    database: authelia
+#    username: DBUSERNAME
+#    # Password can also be set using a secret: https://docs.authelia.com/configuration/secrets.html
+#    # password: use docker secret file instead AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE
+
+notifier:
+  smtp:
+    host: mail.example.com
+    port: 465
+    timeout: 10s
+    username: no-reply@example.com
+    password: YOUR_PASSWORD
+    sender: "Authelia <no-reply@example.com>"
+    identifier: beardedtek.com
+    subject: "[Authelia] {title}"
+    startup_check_address: test@authelia.com
+    disable_require_tls: false
+    disable_starttls: true
+    disable_html_emails: false
+    tls:
+      server_name: mail.example.com
+      skip_verify: true
+
+#  # For testing purpose, notifications can be sent in a file. Be sure map the volume in docker-compose.
+#  filesystem:
+#    filename: /tmp/authelia/notification.txt

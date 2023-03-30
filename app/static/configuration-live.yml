@@ -1,0 +1,77 @@
+access_control:
+  default_policy: deny
+  networks:
+  - name: internal
+    networks:
+    - 192.168.2.0/24
+    - 192.168.21.0/24
+  - name: tailscale
+    networks:
+    - 192.168.23.0/24
+    - 100.64.0.0/10
+  rules:
+  - domain: auth.example.com
+    policy: bypass
+  - domain: traefik.example.com
+    networks:
+    - internal
+    policy: two_factor
+  - domain: traefik.tailscale.example.com
+    networks:
+    - tailscale
+    policy: one_factor
+  - domain: hass.example.com
+    policy: bypass
+  - domain: '*.example.com'
+    policy: two_factor
+  - domain: example.com
+    policy: bypass
+authentication_backend:
+  file:
+    password:
+      algorithm: argon2id
+      iterations: 1
+      memory: 512
+      parallelism: 8
+      salt_length: 16
+    path: /config/users_database.yml
+default_redirection_url: https://auth.example.com
+host: 0.0.0.0
+jwt_secret: yqRMLh4sAbQ47mG0jYsv6vzzHJg1CajKve7tB7OSXiYFk9FXE789roSHIn3380y
+log_level: warn
+notifier:
+  smtp:
+    disable_html_emails: false
+    disable_require_tls: false
+    disable_starttls: true
+    host: mail.example.com
+    identifier: beardedtek.com
+    password: YOUR_PASSWORD
+    port: 465
+    sender: Authelia <no-reply@example.com>
+    startup_check_address: test@authelia.com
+    subject: '[Authelia] {title}'
+    timeout: 10s
+    tls:
+      server_name: mail.example.com
+      skip_verify: true
+    username: no-reply@example.com
+port: 9091
+regulation:
+  ban_time: 300
+  find_time: 120
+  max_retries: 3
+session:
+  domain: example.com
+  expiration: 3600
+  inactivity: 300
+  name: authelia_session
+  secret: yqRMLh4sAbQ47mG0jYsv6vzzHJg1CajKve7tB7OSXiYFk9FXE789roSHIn3380y
+storage:
+  encryption_key: yqRMLh4sAbQ47mG0jYsv6vzzHJg1CajKve7tB7OSXiYFk9FXE789roSHIn3380y
+  local:
+    path: /config/db.sqlite3
+totp:
+  issuer: authelia.com
+  period: 30
+  skew: 1
