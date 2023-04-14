@@ -80,3 +80,7 @@ spawned uWSGI worker 4 (pid: 14187, cores: 1)
 [http://localhost:5000/api](http://localhost:5000/api)
 
 This will allow you to see the work that's been done in the API so far.  It's getting there, but still a long ways away.
+
+# Screenshots
+![Main Landing Page](https://github.com/beardedtek-com/authelia-manager/blob/main/docs/images/ui_main-screenshot?raw=true)
+![Login Page](https://github.com/beardedtek-com/authelia-manager/blob/main/docs/images/ui_login-screenshot?raw=true)
