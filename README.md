@@ -82,5 +82,5 @@ spawned uWSGI worker 4 (pid: 14187, cores: 1)
 This will allow you to see the work that's been done in the API so far.  It's getting there, but still a long ways away.
 
 # Screenshots
-![Main Landing Page](https://github.com/beardedtek-com/authelia-manager/blob/main/docs/images/ui_main-screenshot?raw=true)
-![Login Page](https://github.com/beardedtek-com/authelia-manager/blob/main/docs/images/ui_login-screenshot?raw=true)
+![Main Landing Page](https://github.com/BeardedTek-com/authelia-manager/blob/main/docs/images/ui_main-screenshot.png)
+![Login Page](https://github.com/BeardedTek-com/authelia-manager/blob/main/docs/images/ui_login-screenshot.png)
