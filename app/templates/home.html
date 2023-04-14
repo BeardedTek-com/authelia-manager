@@ -4,8 +4,12 @@
         <title>authelia-manager</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="/static/img/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
+        <link rel="manifest" href="/static/site.webmanifest">
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/static/js/fade_notifications.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
     </head>
     <body class="bg-white dark:bg-gray-900">
@@ -16,14 +20,16 @@
           <nav class="bg-sky-700 bg-gradient-to-r to-blue-600 from-gray-600 fixed w-full px-4 lg:px-6 py-2.5 z-20 top-0 left-0 md:pr-8">
               <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                   <a href="/" class="flex items-center">
-                      <img src="/static/img/logo-cropped.webp" class="pr-1 h-12 w-auto" alt="Flowbite Logo" />
-                      <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Authelia-Manager</span>
+                      <img src="/static/img/logo-cropped.webp" class="mr-1 h-12 w-auto" alt="Flowbite Logo" />
+                      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Authelia-Manager</span>
                   </a>
                   <div class="flex items-center lg:order-2">
+
                     <!-- Start Login / Account Button -->
                     {% if current_user.is_authenticated %}
                       <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-gray-800 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:hover:bg-blue-900 dark:hover:text-white dark:focus:ring-gray-800" type="button">{{ current_user.display }} <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-                      <!-- Dropdown menu -->
+                      
+                      <!-- Start Account Dropdown menu -->
                       <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                           <ul class="py-2 text-sm text-gray-700 dark:text-white" aria-labelledby="dropdownDefaultButton">
                             <li>
@@ -37,10 +43,13 @@
                             </li>
                           </ul>
                       </div>
+                      <!-- End Account Dropdown Menu-->
+
                     {% else %}
                       <a href="/ui/login" class="text-white bg-fuchsia-700 hover:bg-fuchsia-800 focus:ring-4 focus:ring-fuchsia-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-fucshia-600 dark:hover:bg-fucshia-700 focus:outline-none dark:focus:ring-fucshia-800">Log in</a>
                     {% endif %}
                     <!-- End Login / Account Button -->
+
                       <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700" aria-controls="mobile-menu-2" aria-expanded="false">
                           <span class="sr-only">Open main menu</span>
                           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
@@ -69,52 +78,42 @@
 
 <!-- End Header -->
 
-
-
-
-
-
-
-<!--
-      <nav class="bg-sky-700 bg-gradient-to-r to-sky-600 via-violet-700 from-fuchsia-500 fixed w-full z-20 top-0 left-0 md:pr-8">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" class="flex items-center">
-            <div class="saturate-200 whitespace-nowrap tracking-tight block w-9 h-9 pr-1"><img src="/static/img/logo-cropped.svg" class="mr-3 h-8" alt="Authelia Logo" /></div>
-            <span class="text-white font-semibold text-3xl whitespace-nowrap tracking-tight">Authelia-Manager</span>
-        </a>
-        <div class="flex lg:hidden text-white">
-            <button id="hamburger" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-              <span class="sr-only">Open main menu</span>
-              <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-            </button>
-        </div>
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-sticky">
-          <ul class="flex flex-col p-4 md:p-0 mt-4 font-2xl md:flex-row md:space-x-8 md:mt-0">
-            <li>
-              <a href="/ui" class="block py-2 pl-3 pr-4 text-white md:text-white md:p-0">ui</a>
-            </li>
-            <li>
-              <a href="/api" class="block py-2 pl-3 pr-4 text-white md:text-white md:p-0">api</a>
-            </li>
-            <li>
-              <a href="https://github.com/beardedtek-com/authelia-manager" target="_blank" class="block py-2 pl-3 pr-4 text-white md:text-white md:p-0">GitHub</a>
-            </li>
-          </ul>
-        </div>
-        </div>
-      </nav>
-    -->
+<!-- Start Main -->
       <main class="pt-20">
+        <!-- Start Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div id="alerts" class="flex flex-col items-end w-full fixed top-20">
+          {% for message in messages %}
+            <div id="alert-{{loop.index}}" class="ring-2 ring-red-800 dark:ring-red-400 hover:opacity-100 hover:bg-red-800 hover:text-white dark:hover:bg-red-400 dark:hover-text-white transition-opacity duration-200 opacity-80 w-11/12 flex p-2 m-4 mt-0 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 lg:w-1/3 md:w-1/2" role="alert">
+                <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Info</span>
+                <div class="opacity-100 ml-3 text-sm font-medium">
+                {{message}}
+                </div>
+                <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-{{loop.index}}" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+            <script>fadeNotification('alert-{{loop.index}}')</script>
+          {% endfor %}
+          </div>
+        {% endif %}
+        {% endwith %}
+        <!-- End Flash Messages -->
         {% block content %}
         {% endblock %}
       </main>
+<!-- End Main-->
 
+<!-- Start Footer -->
       <footer class="p-4 bg-white sm:p-6 dark:bg-gray-800">
         <div class="mx-auto max-w-screen-xl">
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">
                     <a href="/" class="flex items-center">
-                        <img src="/static/img/logo-cropped.svg" class="mr-3 h-8" alt="Authelia Logo" />
+                        <img src="/static/img/logo-cropped.webp" class="mr-1 h-12 w-auto" alt="Authelia Logo" />
                         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Authelia-Manager</span>
                     </a>
                 </div>
@@ -168,33 +167,11 @@
             </div>
         </div>
     </footer>
+    <!-- End Footer -->
 
+    <!-- Start Scripts -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
       <script src="/static/js/menu.js"></script>
-      <script>
-        function replaceSrc(tag){
-          var path=window.location.pathname;
-          if(path.includes('ui')){
-            path=path.split('/ui')[0];
-          }else if(path.includes('api')){
-            path=path.split('/api')[0];
-          }else if(path.includes('docs')){
-            path=path.split('/docs')[0];
-          };
-          var origin = window.location.origin;
-          var tags=document.getElementsByTagName(tag);
-          for(var i=0;i<tags.length; i++){
-            tagSrc=tags[i].src;
-            if(!tagSrc.includes(path)){
-              oldSrc = "/static/img";newSrc=path+oldSrc;
-              tagSrc=tagSrc.replace(oldSrc,newSrc);
-              tags[i].src = tagSrc;
-              console.log(tags[i].src)
-            }
-          }
-        };
-        replaceSrc("img");
-        replaceSrc("script");
-      </script>
+      <!-- End Scripts -->
     </body>
 </html>

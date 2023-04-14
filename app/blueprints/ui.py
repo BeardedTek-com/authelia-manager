@@ -1,5 +1,6 @@
 # External Imports
 from flask import Blueprint, escape, redirect, jsonify, make_response, render_template
+from flask_login import login_required
 from sqlalchemy import desc
 import os
 
@@ -8,7 +9,6 @@ import os
 # API Blueprint Setup
 ui = Blueprint('ui',__name__)
 @ui.route('/')
-@ui.route('/ui')
 def ui_home():
     """
     Home agPPageageagePPagePPagPPageagePPagPagagPPageageagePPagePPagPPageagePPagPagagage for Site
@@ -70,7 +70,15 @@ def ui_home():
     output = render_template('ui-home.html',intro=intro,intro2=intro2)
     return make_response(output)
 
+
 @ui.route('/ui/login')
 def ui_login():
     output = render_template('login-form.html')
+    return make_response(output)
+
+
+@ui.route('/ui')
+@login_required
+def ui_main():
+    output = render_template('ui-main.html')
     return make_response(output)

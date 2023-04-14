@@ -5,13 +5,27 @@ class apidocs:
         """
         self.contents = {
             "API Documentation":{
-                "/api"                              : "API Information (THIS PAGE)",
-                "/api/initdb"                       : "Init Database",
-                "/api/config"                 : "Returns All Config Data",
-                "/api/config/current/json"          : "Outputs Authelia's configuration.yml file in JSON format",
-                "/api/config/current/yaml"          : "Outputs Authelia's configuration.yml file in YAML format",
-                "/api/users/current/json"           : "Outputs Authelia's user_database.yml file in JSON format",
-                "/api/users/current/yaml"           : "Outputs Authelia's user_database.yml file in YAML format"
+                "/"                                 : "[GET]  Informational page",
+                "/ui"                               : "[GET]  UI entrypoint",
+                "/ui/login"                         : "[GET]  User login form",
+                "/api"                              : "[GET]  API information",
+                "/api/docs"                         : "[GET]  Main documentation (This may change to ui)",
+                "/api/initdb"                       : "[GET]  Initialize database",
+                "/api/config"                       : "[GET]  Returns config data in JSON",
+                "/api/config/post"                  : "[POST] Processes updated config data",
+                "/api/user"                         : "[GET]  Returns user data in JSON",
+                "/api/user/post"                    : "[POST] Processes updated user data",
+                "/api/group"                        : "[GET]  Returns Group Data in JSON",
+                "/api/group/post"                   : "[POST] Processes updated group data",
+                "/api/config/current/json"          : "[GET]  Displays Authelia's current configuration.yml file in JSON format",
+                "/api/config/current/yaml"          : "[GET]  Displays Authelia's current configuration.yml file in YAML format",
+                "/api/users/current/json"           : "[GET]  Displays Authelia's current user_database.yml file in JSON format",
+                "/api/users/current/yaml"           : "[GET]  Displays Authelia's current user_database.yml file in YAML format",
+                "/api/randpw"                       : "[GET]  Generates Random Password (DEPRICATED)",
+                "/api/account"                      : "[POST] Processes changes to user account",
+                "/api/settings"                     : "[POST] Processes changes to user settings",
+                "/api/login"                        : "[POST] Processes Log in",
+                "/api/logout"                       : "[POST] Processes Log out"
             }
         }
         self.markdown =     "API Documentation\n"

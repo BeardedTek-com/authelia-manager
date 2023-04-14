@@ -3,7 +3,7 @@
 import yaml
 import json
 from flask import Blueprint, jsonify, make_response, render_template, request, redirect, flash, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from os import path, access, R_OK, getcwd
 
 # Internal Imports
@@ -21,17 +21,17 @@ from app.models.group import group
 
 api = Blueprint('api',__name__)
 
-@api.route('/api')
-@api.route('/api/account')
-@api.route('/api/settings')
-@api.route('/docs')
+@api.route('/api',methods=['GET'])
+@api.route('/api/account',methods=['GET'])
+@api.route('/api/settings',methods=['GET'])
+@api.route('/docs',methods=['GET'])
 @login_required
 def apiDoc():
     APIdocs = apidocs()
     Markdown = APIdocs.md()
     return make_response(render_template('apidocs.html',apidocs=Markdown))
 
-@api.route('/api/initdb')
+@api.route('/api/initdb',methods=['GET'])
 @login_required
 def apiInitDB():
     """
@@ -94,12 +94,14 @@ def apiUsersCurrentGet(config_format,config_type):
         config_data = json.dumps(config_data,indent=2)
     return render_template('config_file.html',data=config_type, Data=config_data, format=config_format)
 
-@api.route('/api/randpw/<pw_format>/<type>',methods=['GET'])
+@api.route('/api/randpw',methods=['GET'])
 @login_required
-def api_gen_password(pw_format,pw_type):
+def api_gen_password():
     """
     Generates a random password hash
     """
+    pw_format="argon2"
+    pw_type="id"
     if pw_format:
     # For now, we only do argon2 password generation.
     # We can expand here when we add more
@@ -149,10 +151,12 @@ def api_login():
             flash(f"{error_string}")
         return redirect(url_for('ui.ui_login'))
 
-    return redirect(url_for('ui.ui_home'))
+    return redirect(url_for('ui.ui_main'))
 
 @api.route('/api/logout')
 @login_required
 def logout():
+    display_name = current_user.display
     logout_user()
+    flash(f"{display_name} successfully logged out.")
     return redirect(url_for('ui.ui_home'))

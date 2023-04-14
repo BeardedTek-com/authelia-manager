@@ -1,13 +1,39 @@
 {% extends "home.html" %}
 
 {% block content %}
-    <div class="pt-20 p-5 self-center justify-center items-center text-slate-800 dark:text-slate-200 text-3xl">
-        {% for api in apidocs %}
-            {{api}}
-            {% for url in apidocs[api] %}
-<pre class='text-xl bg-zinc-400 dark:bg-zinc-400 m-1 p-2 text-slate-800 dark:text-slate-800'><code class='cursor-pointer' onClick=parent.location='{{url}}'> {{url}}</code>
-<code>     {{apidocs[api][url]}}</code></pre>
-            {% endfor %}
-        {% endfor %}
+
+    <section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mb-24 mt-4 lg:py-0">
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 max-w-screen-2xl dark:bg-gray-800 dark:border-gray-700">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            endpoint
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Description
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for api in apidocs %}
+                    {% for url in apidocs[api] %}
+                    <tr onClick="parent.location='{{url}}'" class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <pre><code>{{url}}</code></pre>
+                        </th>
+                        <td class="px-6 py-4">
+                            {{apidocs[api][url]}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
+    </section>
+
 {% endblock %}
+
