@@ -30,19 +30,17 @@ git clone https://github.com/beardedtek-com/authelia-manager
 ```
 cd authelia-manager
 ```
-#### Create Virtual Environment
-```
-python -m venv venv
-```
-#### Activate Virtual Environment
-```
-source venv/bin/activate
-```
+
 ### Start it up
 ```
 ./run.sh
 ```
-This script will 
+### run.sh takes the following actions:
+- Creates a new virtual environment in .venv if it does not exist: `python3 -m venv .venv`
+- Activates the virtual environment: `source .venv/bin/activate`
+- Installs python requirements: `pip install -r requirements.txt`
+- Starts up uWSGI on port 5000
+
 At this point, you should have the following output at the bottom of your terminal:
 ```
 *** Starting uWSGI 2.0.21 (64bit) on [Mon Dec 19 14:06:39 2022] ***
