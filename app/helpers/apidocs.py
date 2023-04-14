@@ -7,7 +7,7 @@ class apidocs:
             "API Documentation":{
                 "/api"                              : "API Information (THIS PAGE)",
                 "/api/initdb"                       : "Init Database",
-                "/api/config [GET]"                 : "Returns All Config Data",
+                "/api/config"                 : "Returns All Config Data",
                 "/api/config/current/json"          : "Outputs Authelia's configuration.yml file in JSON format",
                 "/api/config/current/yaml"          : "Outputs Authelia's configuration.yml file in YAML format",
                 "/api/users/current/json"           : "Outputs Authelia's user_database.yml file in JSON format",

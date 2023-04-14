@@ -28,7 +28,9 @@ class argon2hash:
         }
 
         return rval
-
+    def check_hash(hash,password):
+        return False
+        
 if __name__ == "__main__":
     Argon2hash = argon2hash("T35tP@55w0rD",type="id")
     print(Argon2hash.gen_hash())

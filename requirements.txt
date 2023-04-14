@@ -1,8 +1,8 @@
 passlib
-argon2_cffi
-argon2pure
+argon2-cffi
 flask
 flask_sqlalchemy
+flask-login
 uwsgi
 markdown
 PyYAML

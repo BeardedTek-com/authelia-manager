@@ -63,3 +63,16 @@ acc_rules:
     networks                                : comma separated list of networks defined in acc_networks `internal`
     subject                                 : comma separated list of users, groups in format of ['user:username'] or ['group:groupname']
     #NOTE NEED TO ADD EVERYTHING ELSE BUT THIS GETS US STARTED FOR NOW.
+
+users:
+    id                                      : unique identifier
+    user                                    : username
+    display                                 : Display Name
+    email                                   : Email Address
+    groups                                  : comma separated list of groups
+
+group:
+    id                                      : unique identifier
+    group                                   : group name
+    display                                 : Display Name
+    permissions                             : comma separated permissions for the group

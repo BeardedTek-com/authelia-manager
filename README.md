@@ -42,7 +42,7 @@ source venv/bin/activate
 ```
 ./run.sh
 ```
-
+This script will 
 At this point, you should have the following output at the bottom of your terminal:
 ```
 *** Starting uWSGI 2.0.21 (64bit) on [Mon Dec 19 14:06:39 2022] ***
