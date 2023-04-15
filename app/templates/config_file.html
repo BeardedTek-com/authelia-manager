@@ -1,10 +1,19 @@
 {% extends "home.html" %}
 
+{% if data == "configuration" %}
+  {% set ftype = "config" %}
+{% elif data == "users_database" %}
+  {% set ftype = "users" %}
+{% endif %}
+
 {% block content %}
 <div class="pt-20 p-5 self-center justify-center items-center text-slate-800 dark:text-slate-200 text-3xl">
-<p class='m-2'>Current {{data}}.yml in {{format|upper}} format</p>
-    <pre class='text-xl bg-zinc-400 dark:bg-zinc-400 p-1 text-slate-800 dark:text-slate-800'>
-      {{Data}}
-    </pre>
+  
+{% if format|upper == "JSON" %}
+  <p class='m-2'>Current {{data}}: <span class="text-bold">JSON</span> <a href="/api/{{ftype}}/current/yaml">YAML</a></p>
+{% elif format|upper == "YAML" %}
+  <p class='m-2'>Current {{data}}: <span class="text-bold">YAML</span> <a href="/api/{{ftype}}/current/json">JSON</a></p>
+{% endif %}
+<pre class='text-xl bg-zinc-400 dark:bg-zinc-400 p-1 text-slate-800 dark:text-slate-800'>{{Data}}</pre>
 </div>
 {% endblock %}

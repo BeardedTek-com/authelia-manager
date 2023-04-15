@@ -88,7 +88,7 @@ def apiUsersCurrentGet(config_format,config_type):
             config_data = yaml.safe_load(config_file)
     else:
         config_data = {"Error": f"Cannot read {config}"}
-    if format == "yaml" or format == "yml":
+    if config_format == "yaml" or config_format == "yml":
         config_data = yaml.dump(config_data)
     else:
         config_data = json.dumps(config_data,indent=2)
