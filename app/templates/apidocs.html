@@ -5,10 +5,10 @@
     <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mb-24 mt-4 lg:py-0">
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 max-w-screen-2xl dark:bg-gray-800 dark:border-gray-700">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left text-sky-100 dark:text-gray-400">
+                <thead class="text-xs text-slate-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-slate-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 w-28 md:w-auto">
                             endpoint
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -19,8 +19,8 @@
                 <tbody>
                 {% for api in apidocs %}
                     {% for url in apidocs[api] %}
-                    <tr onClick="parent.location='{{url}}'" class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr onClick="parent.location='{{url}}'" class="font-small md:font-medium cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 text-slate-900 whitespace-nowrap dark:text-sky-100 flex-wrap w-20 md:w-auto">
                             <pre><code>{{url}}</code></pre>
                         </th>
                         <td class="px-6 py-4">

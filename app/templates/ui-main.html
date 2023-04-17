@@ -2,21 +2,31 @@
 
 {% block content %}
 <section class="bg-gray-50 dark:bg-gray-900">
-    <div class="flex flex-col items-center justify-center px-6 py-8 mb-24 mt-4 min-h-max lg:py-0">
-        <div class="w-full shadow md:mt-0 max-w-screen-2x1 dark:text-white p-4 text-3xl">
-            Descriptive Title
-        </div>
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 max-w-screen-2xl dark:bg-gray-800 dark:text-white dark:border-gray-700 pt-4 p-10 mb-4 text-xl">
-            <p class="text-2xl">Descriptive Subtitle</p>
+    <!-- Start UI-Main Section Just Text -->
+    <div class="flex flex-col items-center justify-center px-1 py-1 lg:px-6 lg:py-6 mb-4 min-h-max lg:py-0">
+
+            <div class="w-full shadow md:mt-0 max-w-screen-2x1 dark:text-white p-4">
+                <p class="text-xl md:text-2xl lg:text-3xl font-bold">Descriptive Title</p>
+                <p class="text-sm md:text-md pl-4">by Admin</p>
+            </div>
+            <div class="w-full max-w-screen-2xl dark:text-white pt-4 p-2 mb-4 text-md md:text-lg lg:text-xl">
+                <p class="clear-none text-2xl font-bold">Descriptive Subtitle</p>
+                <p class="clear-none pt-2">{{ lipsum(2) }}</p>
+                <p class="clear-none">{{ lipsum(2) }}</p>
+            </div>
+    </div>
+    <!-- End UI-Main Section Just Text -->
+
+    <!-- Start UI-Main Section With Image on the Left-->
+    <div class="flex flex-col items-center justify-center px-1 py-1 lg:px-6 lg:py-6 mb-4 min-h-max lg:py-0">
+        <div class="w-full shadow md:mt-0 max-w-screen-2x1 dark:text-white p-4">
+            <p class="text-xl md:text-2xl lg:text-3xl font-bold">Another Descriptive Title</p>
             <p class="text-sm pl-4">by Admin</p>
-            <p class="pt-4">Here is the first paragraph.</p>
-            <p>Now there's a second one.</p>
         </div>
-        <div class="w-full shadow md:mt-0 max-w-screen-2x1 dark:text-white p-4 text-3xl">
-            Header for Part 2
-        </div>
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 max-w-screen-2xl dark:bg-gray-800 dark:text-white dark:border-gray-700 p-10 pt-4 mb-4 text-xl mb-20">
-            Some Content There
+        <div class="w-full max-w-screen-2xl dark:text-white pt-4 p-2 md:p-3 lg:p-4 mb-4 text-md md:text-lg lg:text-xl">
+            <img class="h-48 md:h-64 w-auto pb-1 pr-6 float-left" src="/static/img/lockdown.png">
+            <p class="clear-none">{{ lipsum(2) }}</p>
+            <p class="clear-none">{{ lipsum(2) }}</p>
         </div>
     </div>
 </section>

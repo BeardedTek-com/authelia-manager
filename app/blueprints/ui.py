@@ -11,7 +11,7 @@ ui = Blueprint('ui',__name__)
 @ui.route('/')
 def ui_home():
     """
-    Home agPPageageagePPagePPagPPageagePPagPagagPPageageagePPagePPagPPageagePPagPagagage for Site
+    Home Page for Site
 
     Returns:
         make_response: outputs render template for text
@@ -81,4 +81,10 @@ def ui_login():
 @login_required
 def ui_main():
     output = render_template('ui-main.html')
+    return make_response(output)
+
+@ui.route('/config')
+@login_required
+def ui_config():
+    output = render_template('ui_config.html')
     return make_response(output)
