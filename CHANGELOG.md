@@ -1,3 +1,26 @@
+# 2023/04/20
+Much progress has been made
+- Restructured database
+  - host
+  - users
+  - groups
+  - networks
+  - rules
+  - totp
+  - file_auth
+  - config
+- JavaScript
+  - async code to display and send form data to API
+- API
+  - Starting to write database queries for updating entries
+    - only for users so far
+- UI
+  - MAJOR UI overhauls.  Using tailwind and flowbite for css and form controls
+  - Notifications
+- More
+  - Lots more than I can remember at this point.  I should have written this as I go...
+
+
 # 2022/12/18
 Initial code dump to database
 - Database Models created
