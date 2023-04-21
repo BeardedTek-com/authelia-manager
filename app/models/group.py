@@ -11,3 +11,4 @@ class group(db.Model):
     group = db.Column(db.String(50),unique=True)
     display = db.Column(db.String(50))
     permissions = db.Column(db.String(200))
+    notes = db.Column(db.Text)

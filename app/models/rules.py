@@ -1,6 +1,6 @@
 from app import db
 
-class acc_rules(db.Model):
+class rules(db.Model):
     """
     id                                      : unique identifier
     domain                                  : `*.example.com`
@@ -16,3 +16,6 @@ class acc_rules(db.Model):
     policy = db.Column(db.String(15))
     networks = db.Column(db.String(1024))
     subject = db.Column(db.String(1024))
+    methods = db.Column(db.String(20))
+    resources = db.Column(db.String(100))
+    notes = db.Column(db.Text)

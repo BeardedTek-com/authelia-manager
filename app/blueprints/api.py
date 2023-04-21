@@ -2,9 +2,10 @@
 # External Imports
 import yaml
 import json
-from flask import Blueprint, jsonify, make_response, render_template, request, redirect, flash, url_for
+from flask import Blueprint, jsonify, make_response, render_template, request, redirect, flash, url_for, request
 from flask_login import login_user, logout_user, login_required, current_user
 from os import path, access, R_OK, getcwd
+import random
 
 # Internal Imports
 from app.helpers.argon2hash import argon2hash, argon2verify
@@ -13,11 +14,13 @@ from app.helpers.apidocs import apidocs
 from app.helpers.iterateQuery import iterateQuery
 from app import db
 
-from app.models.config import config
-from app.models.acc_networks import acc_networks
-from app.models.acc_rules import acc_rules
-from app.models.users import users
+from app.models.file_auth import file_auth
 from app.models.group import group
+from app.models.host import host
+from app.models.networks import networks
+from app.models.rules import rules
+from app.models.totp import totp
+from app.models.users import users
 
 api = Blueprint('api',__name__)
 
@@ -32,7 +35,6 @@ def apiDoc():
     return make_response(render_template('apidocs.html',apidocs=Markdown))
 
 @api.route('/api/initdb',methods=['GET'])
-@login_required
 def apiInitDB():
     """
     Initialize the database
@@ -61,18 +63,65 @@ def apiDataGET(data):
                     "Access Control Networks"   : iterateQuery(acc_networks_Data),
                     "Access Control Rules"      : iterateQuery(acc_rules_Data)
             }
-    elif data == "user":
+    elif data == "user" or data == "users":
         output = {}
         query = users.query.all()
         output = iterateQuery(query)
-
+    elif data == "networks":
+        output = {}
+        query = networks.query.all()
+        output = iterateQuery(query)
+    elif data == "rules":
+        output = {}
+        query = rules.query.all()
+        output = iterateQuery(query)
+    elif data == "totp":
+        output = {}
+        query = totp.query.all()
+        output = iterateQuery(query)
     elif data == "group":
         output = {}
         query = group.query.all()
         output = iterateQuery(query)
     else:
         output = {"Error":"Invalid Request"}
-    print(output)
+    return output
+
+@api.route('/api/<data>',methods=['POST'])
+def api_data_post(data):
+    jsonData = request.get_json()
+    print(jsonData)
+    if data == "users":
+        try:
+            query = users.query.filter_by(id=jsonData['id']).first()
+            changes = False
+            if query.display != jsonData['display']:
+                changes = True
+                query.display = jsonData['display']
+            if query.email != jsonData['email']:
+                changes = True
+                query.email = jsonData['email']
+            if query.groups != jsonData['groups']:
+                changes = True
+                query.groups = jsonData['groups']
+            if query.notes != jsonData['note']:
+                changes = True
+                query.notes = jsonData['note']
+            if changes:
+                print("changes")
+                db.session.commit()
+                output = {"return":0}
+            else:
+                print("no changes")
+                output = {"return":1,"error":"No changes"}
+        except Exception as error:
+            print(f"ERROR: {error}")
+            output = {"return":11,"error":str(error)}
+    else:
+        error_code = random.randint(0,2)
+        output = {"return":error_code}
+        if error_code != 0:
+            output['error'] = "Test Error Code"
     return output
 
 @api.route('/api/<config_type>/current/<config_format>',methods=['GET'])
@@ -110,10 +159,8 @@ def api_gen_password():
             # Generate random password
             rndpwd = randpwd()
             rand_password = rndpwd.generate()
-            print(rand_password)
-            pwdhash = argon2hash(rand_password,type=pw_type)
+            pwdhash = argon2hash(rand_password)
             hashed_password = pwdhash.gen_hash()
-            print(hashed_password)
             output = {
                 "Password"    : hashed_password
             }
@@ -141,7 +188,7 @@ def api_login():
             login_user(user)
         else:
             flash('Please check your login details and try again.')
-            return redirect(url_for('ui.login')) # if the user doesn't exist or password is wrong, reload the page
+            return redirect(url_for('ui.ui_login')) # if the user doesn't exist or password is wrong, reload the page
         # if the above check passes, then we know the user has the right credentials
             
     except Exception as error_string:

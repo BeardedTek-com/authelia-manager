@@ -5,6 +5,21 @@ from sqlalchemy import desc
 import os
 
 # Internal Imports
+from app.helpers.iterateQuery import iterateQuery
+from app.models.config import config
+def auth_method():
+    try:
+        query = config.query.all()
+        print(f"query: {query}")
+        CONFIG = iterateQuery(query)
+        print(CONFIG)
+        print(CONFIG[1]['auth_backend'])
+        auth = CONFIG[1]['auth_backend']
+        print(auth)
+    except:
+        auth="none"
+    print(auth)
+    return auth
 
 # API Blueprint Setup
 ui = Blueprint('ui',__name__)
@@ -67,24 +82,48 @@ def ui_home():
                         }
 
             }
-    output = render_template('ui-home.html',intro=intro,intro2=intro2)
+    output = render_template('ui-home.html',intro=intro,intro2=intro2,auth_method=auth_method())
     return make_response(output)
 
 
 @ui.route('/ui/login')
 def ui_login():
-    output = render_template('login-form.html')
+    output = render_template('login-form.html',auth_method=auth_method())
     return make_response(output)
 
 
 @ui.route('/ui')
 @login_required
 def ui_main():
-    output = render_template('ui-main.html')
+    print(auth_method)
+    output = render_template('ui-main.html',auth_method=auth_method())
+    return make_response(output)
+@ui.route('/edit/<data>')
+@login_required
+def ui_edit(data):
+    output = render_template('ui-edit.html',auth_method=auth_method(),data=data)
     return make_response(output)
 
 @ui.route('/config')
 @login_required
 def ui_config():
-    output = render_template('ui_config.html')
+    output = render_template('ui-config.html',auth_method=auth_method())
+    return make_response(output)
+
+@ui.route('/users')
+@login_required
+def ui_users():
+    output = render_template('ui-users.html',auth_method=auth_method())
+    return make_response(output)
+
+@ui.route('/networks')
+@login_required
+def ui_networks():
+    output = render_template('ui-networks.html',auth_method=auth_method())
+    return make_response(output)
+
+@ui.route('/rules')
+@login_required
+def ui_rules():
+    output = render_template('ui-rules.html',auth_method=auth_method())
     return make_response(output)

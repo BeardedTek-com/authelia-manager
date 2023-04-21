@@ -10,7 +10,7 @@ class config(db.Model):
     default_redirection_url                 : Default Redirection URL `https://${hostname}`
                                               https://docs.authelia.com/configuration/miscellaneous.html#default-redirection-url
     auth_backend                            : Always file for now
-    file_path:                              : Filepath of `/config/users_database.yml`
+    file_path                               : Filepath of `/config/users_database.yml`
 
     password_algorithm                      : Algorithm to use for password hash `argon2`
     password_algorithm_variant              : Variant of argon2 `argon2id`

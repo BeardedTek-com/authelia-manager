@@ -19,3 +19,4 @@ class users(db.Model, UserMixin):
     email = db.Column(db.String(150),unique=True)
     groups = db.Column(db.String(200))
     hash = db.Column(db.String(150))
+    notes = db.Column(db.Text)

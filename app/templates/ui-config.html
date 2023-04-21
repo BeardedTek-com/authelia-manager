@@ -1,0 +1,343 @@
+{% extends "home.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto min-h-screen">
+
+    <div class="flex flex-col items-center justify-center px-1 py-1 lg:px-6 lg:py-6 mb-4 min-h-max lg:py-0">
+        <div class="w-full max-w-screen-2xl dark:text-white pt-4 p-2 mb-4 text-md md:text-lg lg:text-xl">
+            <p class="clear-none text-2xl font-bold">Edit configuration.yaml</p>
+            <p class="clear-none pt-2">Each accordian represents a section of the configuration.yaml file.  Sane defaults will be listed in each field if the value is not yet set.</p>
+            <p class="clear-none">Click save on each section after editing.</p>
+        </div>
+    </div>
+<!-- Begin Accordian Section-->
+    <div id="accordion-collapse" data-accordion="collapse">
+        <!-- Begin Accordian Header -->
+        <h2 id="config-main-heading">
+        <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-t-xl dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#config-main-body" aria-expanded="false" aria-controls="config-main-body">
+            <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>host</span>
+            <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </button>
+        </h2>
+        <!-- End Accordian Header -->
+        <!-- Begin Accordian Body -->
+        <div id="config-main-body" class="hidden border border-gray-200 dark:border-gray-700" aria-labelledby="config-main-body">
+            <form id="host" name="host" action="#">
+                <div class="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
+                    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                        <div class="w-full">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Host / Interface (0.0.0.0 for all interfaces)
+                            </label>
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="0.0.0.0" required="">
+                        </div>
+                        <div class="w-full">
+                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Port Number</label>
+                            <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="9091" required="">
+                        </div>
+                        <div>
+                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Log Level</label>
+                            <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500
+                                focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option value="info" selected="">info</option>
+                                <option value="warn">warn</option>
+                                <option value="error">error</option>
+                                <option value="debug">debug</option>
+                                <option value="trace">trace</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="item-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Default Redirection URL
+                            </label>
+                            <input type="number" name="item-weight" id="item-weight"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600
+                                block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500
+                                dark:focus:border-primary-500" placeholder="https://auth.example.com" required="">
+                        </div> 
+                        <div class="sm:col-span-2">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                jwt_secret - You can use <a class="underline" target="_blank" href="https://www.grc.com/passwords.htm">this site</a> to generate.
+                            </label>
+                            <label for="name" class="block mb-2 text-sm text-gray-900 dark:text-white">
+                                or run <span class="font-medium">openssl rand -base64 63 | tr -d '\ n'</span>
+                            </label>
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="yqRMLh4sAbQ47mG0jYsv6vzzHJg1CajKve7tB7OSXiYFk9FXE789roSHIn3380y" required="">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Notes
+                            </label>
+                            <textarea id="description" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300
+                                focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Notes will be saved as a comment in the configuration file.">
+                            </textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-800 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- End Accordian Body -->
+    </div>
+<!-- End Accordian Section-->
+
+<!-- Begin Accordian Section-->
+    <div id="accordion-collapse" data-accordion="collapse">
+        <!-- Begin Accordian Header -->
+        <h2 id="config-totp-heading">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-t-xl dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#config-totp-body" aria-expanded="false" aria-controls="config-totp-body">
+            <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg> totp</span>
+            <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+        </h2>
+        <!-- Begin Accordian Body -->
+        <div id="config-totp-body" class="hidden border border-gray-200 dark:border-gray-700" aria-labelledby="config-totp-body">
+            <form id="totp" name="totp" action="#">
+                <div class="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
+                    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                        <div class="sm:col-span-2">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">issuer</label>
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="authelia.com" required="">
+                        </div>
+                        <div class="w-full">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">period</label>
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="30" required="">
+                        </div>
+                        <div class="w-full">
+                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">skew</label>
+                            <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1" required="">
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
+                        <textarea id="description" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Notes will be saved as a comment in the configuration file."></textarea>
+                    </div>
+                    <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-800 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- End Accordian Body -->
+    </div>
+<!-- End Accordian Section-->
+
+<!-- Begin Accordian Section-->
+    <div id="accordion-collapse" data-accordion="collapse">
+        <!-- Begin Accordian Header -->
+        <h2 id="config-auth_backend-heading">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-t-xl dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#config-auth_backend-body" aria-expanded="false" aria-controls="config-auth_backend-body">
+            <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Authentication Backend</span>
+            <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+        </h2>
+        <div id="config-auth_backend-body" class="hidden border border-gray-200 dark:border-gray-700" aria-labelledby="config-auth_backend-body">
+            <div class="w-full max-w-screen-2xl dark:text-white pt-4 p-2 text-md md:text-lg lg:text-xl">
+                <p class="clear-none pt-2">For now, only the file backend is supported.  In the future other backends may be supported.</p>
+            </div>
+            <div class="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
+                <form id="authentication" name="authentication" action="#">
+                        <div class="w-full max-w-fit dark:text-white text-md md:text-lg lg:text-xl mt-4">
+                            <p>file</p>
+                        </div>
+                        <div class="border border-gray-200 dark:border-gray-700 rounded-xl pt-4 p-2">
+                            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                                <div class="sm:col-span-2">
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">path</label>
+                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="/config/users_database.yml" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full max-w-fit dark:text-white text-md md:text-lg lg:text-xl mt-4">
+                            <p>password</p>
+                        </div>
+                        <div class="border border-gray-200 dark:border-gray-700 rounded-xl pt-4 p-2">
+                            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                                <div class="w-full">
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password algorithm</label>
+                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="30" required="">
+                                </div>
+                                <div class="w-full">
+                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password iterations</label>
+                                    <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1" required="">
+                                </div>
+                                <div class="w-full">
+                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password salt_length</label>
+                                    <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1" required="">
+                                </div>
+                                <div class="w-full">
+                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password parallelism</label>
+                                    <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1" required="">
+                                </div>
+                                <div class="w-full">
+                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password memory</label>
+                                    <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1" required="">
+                                </div>
+                            </div>
+                        </div>
+                    <div>
+                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
+                        <textarea id="description" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Notes will be saved as a comment in the configuration file."></textarea>
+                    </div>
+                    <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-800 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- End Accordian Body -->
+    </div>
+<!-- End Accordian Section-->
+
+
+<!-- Begin Accordian Section-->
+<div id="accordion-collapse" data-accordion="collapse">
+    <!-- Begin Accordian Header -->
+    <h2 id="config-access_control-heading">
+        <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-t-xl dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#config-access_control-body" aria-expanded="false" aria-controls="config-access_control-body">
+        <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Access Control</span>
+        <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </button>
+    </h2>
+    <!--
+access_control:
+  default_policy: deny **
+
+  networks:
+    - name: internal **
+      networks:
+      - '192.168.2.0/24' # Your Internal Subnet **
+      - '192.168.21.0/24'
+  rules:
+    # Authelia must be bypass
+    - domain: auth.example.com
+      policy: bypass
+    # Traefik Dashboard 2FA
+    - domain: "traefik.example.com"
+      policy: two_factor
+      networks:
+      - "internal"
+    # Traefik Tailscale Dashboard one_factor (username/password)
+    - domain: "traefik.tailscale.example.com"
+      policy: one_factor
+      networks:
+      - "tailscale"
+    # Home Assistant No Auth (We can setup authelia in Home Assistant)
+    - domain: "hass.example.com"
+      policy: bypass
+    # Default Policy for any other domains
+    - domain: "*.example.com"
+      policy: two_factor
+    # Let our main domain through without auth
+    - domain: "example.com"
+      policy: bypass
+-->
+    <div id="config-access_control-body" class="hidden border border-gray-200 dark:border-gray-700" aria-labelledby="config-access_control-body">
+        <div class="w-full max-w-screen-2xl dark:text-white pt-4 p-2 text-md md:text-lg lg:text-xl">
+            <p class="clear-none pt-2">For now, only the file backend is supported.  In the future other backends may be supported.</p>
+        </div>
+        <div class="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
+                    <div class="w-full max-w-fit dark:text-white text-md md:text-lg lg:text-xl mt-4">
+                        <p>Access Control</p>
+                    </div>
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-xl pt-4 p-2">
+                        <form id="acc_default" name="acc_default" action="#">
+                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default Policy</label>
+                            <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option value="info" selected="">deny</option>
+                                <option value="warn">allow</option>
+                            </select>
+                            <div class="pt-2">
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
+                                <textarea id="description" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Notes will be saved as a comment in the configuration file."></textarea>
+                            </div>
+                            <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-800 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                    <div class="w-full max-w-fit dark:text-white text-md md:text-lg lg:text-xl mt-4">
+                        <p>Networks</p>
+                    </div>
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-xl pt-4 p-2">
+                        <form id="acc_network" name="acc_network" action="#">
+                            <div class="grid gap-4 grid-cols-2 sm:gap-6">
+                                <div class="col-span-1">
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Network Name</label>
+                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="local" required="">
+                                </div>
+                                <div class="col-span-1">
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CIDR</label>
+                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="192.168.0.0/24" required="">
+                                </div>
+                            </div>
+                            <div class="pt-2">
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
+                                <textarea id="description" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Notes will be saved as a comment in the configuration file."></textarea>
+                            </div>
+                            <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-800 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                    <div class="w-full max-w-fit dark:text-white text-md md:text-lg lg:text-xl mt-4">
+                        <p>Rules</p>
+                    </div>
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-xl pt-4 p-2">
+                        <form id="acc_rules" name="acc_network" action="#">
+                            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                                <div class="col-span-2">
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Domain</label>
+                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="my.example.com" required="">
+                                </div>
+                                <div class="w-full">
+                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Authentication Policy</label>
+                                    <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option value="info" selected="">One Factor</option>
+                                        <option value="warn">Two Factor</option>
+                                    </select>
+                                </div>
+                                <div class="w-full">
+                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Network</label>
+                                    <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option value="info" selected="">Network 1</option>
+                                        <option value="warn">Network 2</option>
+                                        <option value="error">Network 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="pt-2">
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
+                                <textarea id="description" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Notes will be saved as a comment in the configuration file."></textarea>
+                            </div>
+                            <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-800 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                
+        </div>
+    </div>
+    <!-- End Accordian Body -->
+</div>
+<!-- End Accordian Section-->
+
+
+<button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-800 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+    Save All
+</button>
+</form>
+</div>
+{% endblock %}

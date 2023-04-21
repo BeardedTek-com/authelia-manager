@@ -1,0 +1,8 @@
+version: '3'
+services:
+  authelia-manager:
+    image: beardedtek/authelia-manager:demo
+    container_name: authelia-manager-demo
+    ports:
+      - 9999:5000
+    restart: unless-stopped
